@@ -3,6 +3,8 @@ extends Node2D
 @export var ar_scale: float = 3.0
 @export var hands: Array[Line2D] = []
 
+@export var torso: Polygon2D
+
 @export var rend: ColorRect
 
 var process_io: FileAccess
@@ -28,7 +30,6 @@ func _process(_delta: float) -> void:
 		print("RES: ", res)
 
 func read_process_output():
-	var base_pos := Vector2.ZERO
 	while process_io.is_open() and process_io.get_error() == OK:
 		var line = process_io.get_line()
 		# print(line)
@@ -42,7 +43,7 @@ func read_process_output():
 			var split = line.split(" ")
 			var vec = Vector2(float(split[0]), float(split[1]))
 			update_positions.call_deferred(vec)
-			base_pos = vec
+			print("head: ", vec)
 		elif line.begins_with("hand "):
 			line = line.substr(4, -1)
 			# print("CHARATCER:l ", line1)
@@ -56,12 +57,35 @@ func read_process_output():
 				var p = points[p_idx]
 				var s = p.substr(1, p.length() - 2).split(", ")
 				var v = Vector2(float(s[0]), float(s[1]))
-				update_point_pos.call_deferred(hand_idx, p_idx, v - base_pos)
-		# elif line.begins_with("= "):
-		# 	line = line.substr(2, -1)
-		# 	var split = line.split(" ")
-		# 	var aspect_raitio = float(split[0])
-		# 	update_scale.call_deferred(aspect_raitio)
+				update_point_pos.call_deferred(hand_idx, p_idx, v)
+		elif line.begins_with("shoulder "):
+			line = line.substr(8, -1)
+			# print("CHARATCER:l ", line1)
+			var idx := int(line[1])
+			line = line.substr(5, line.length() - 6)
+			var s = line.split(", ")
+			var v = Vector2(float(s[0]), float(s[1]))
+			update_shoulder.call_deferred(idx, v)
+			# print("shoulder ", idx, ": ", v)
+		elif line.begins_with("hip "):
+			line = line.substr(3, -1)
+			# print("CHARATCER:l ", line1)
+			var idx := int(line[1])
+			line = line.substr(5, line.length() - 6)
+			var s = line.split(", ")
+			var v = Vector2(float(s[0]), float(s[1]))
+			update_hip.call_deferred(idx, v)
+			# print("hip ", idx, ": ", v)
+
+func update_shoulder(idx: int, v: Vector2) -> void:
+	var poly = torso.polygon
+	poly.set(0 + idx, v)
+	torso.polygon = poly
+
+func update_hip(idx: int, v: Vector2) -> void:
+	var poly = torso.polygon
+	poly.set(3 - idx, v)
+	torso.polygon = poly
 
 func update_point_pos(hand_idx: int, p_idx: int, v: Vector2) -> void:
 	hands[hand_idx].set_point_position(p_idx, v)
@@ -70,7 +94,7 @@ func update_angles(angle: Vector3) -> void:
 	(rend.material as ShaderMaterial).set_shader_parameter("angles", angle)
 
 func update_positions(pos: Vector2) -> void:
-	rend.position = pos
+	rend.get_parent().position = pos
 
 func update_scale(ar: float) -> void:
 	rend.get_parent().scale.y = ar * ar_scale

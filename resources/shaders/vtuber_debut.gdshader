@@ -1,5 +1,9 @@
 shader_type canvas_item;
 
+uniform bool spin;
+uniform float spin_speed;
+uniform vec3 spin_amp;
+
 uniform float precision;
 uniform vec3 angles;
 uniform vec3 rotation_offset;
@@ -7,10 +11,10 @@ uniform vec3 pt;
 uniform float amplitude;
 uniform bool orthogonal;
 uniform float fov_amp;
-uniform sampler2D shape_texture;
-uniform sampler2D color_texture;
-uniform sampler2D back_shape_texture;
-uniform sampler2D back_color_texture;
+uniform sampler2D shape_texture: filter_nearest;
+uniform sampler2D color_texture: filter_nearest;
+uniform sampler2D back_shape_texture: filter_nearest;
+uniform sampler2D back_color_texture: filter_nearest;
 uniform vec2 color_offset;
 uniform vec2 color_scale;
 
@@ -56,5 +60,12 @@ vec4 raycasting(vec2 uv, vec3 angs) {
 }
 
 void fragment() {
-	COLOR = raycasting(UV, vec3(angles));
+	//COLOR = raycasting(UV, vec3(angles));
+
+	if (spin == true){
+		COLOR = raycasting(UV, vec3(sin(TIME * spin_speed)*spin_amp.x, cos(TIME * spin_speed)*spin_amp.y, cos(1.0+TIME * spin_speed)*spin_amp.z) + rotation_offset);
+	} else {
+		COLOR = raycasting(UV, vec3(angles));
+	}
+
 }
