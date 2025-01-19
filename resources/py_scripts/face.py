@@ -1,7 +1,6 @@
 import numpy as np
 import cv2
 import mediapipe as mp
-import time
 import math
 
 # Toggle variable to control displaying the camera output
@@ -13,23 +12,22 @@ face_mesh = mp_face_mesh.FaceMesh(min_detection_confidence=0.5, min_tracking_con
 mp_holistic = mp.solutions.holistic
 holistic = mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5)
 
+# mp_
+
 cap = cv2.VideoCapture(0)
 
 while cap.isOpened():
     success, image = cap.read()
-
-    start = time.time()
-
+    
     image = cv2.cvtColor(cv2.flip(image, 1), cv2.COLOR_BGR2RGB)  # flipped for selfie view
-
     image.flags.writeable = False
 
+    # reading data n stuff
     results = face_mesh.process(image)
-    
     holistic_results = holistic.process(image)
 
     image.flags.writeable = True
-
+    
     image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
     img_h, img_w, img_c = image.shape
@@ -52,16 +50,13 @@ while cap.isOpened():
 
             # Get 2d Coord
             face_2d = np.array(face_2d, dtype=np.float64)
-
             face_3d = np.array(face_3d, dtype=np.float64)
 
             focal_length = 1 * img_w
-
             cam_matrix = np.array([[focal_length, 0, img_h / 2],
                                   [0, focal_length, img_w / 2],
                                   [0, 0, 1]])
             distortion_matrix = np.zeros((4, 1), dtype=np.float64)
-
             success, rotation_vec, translation_vec = cv2.solvePnP(face_3d, face_2d, cam_matrix, distortion_matrix)
 
             # getting rotational of face
@@ -78,7 +73,6 @@ while cap.isOpened():
             # z = math.atan2(rotation_matrix[1, 0], rotation_matrix[0, 0])  # Rotation around the Z-axis
 
             print(f"! {x} {y} {z}", flush=True)
-
 
             # head angle rotation
             nose_3d_projection, jacobian = cv2.projectPoints(nose_3d, rotation_vec, translation_vec, cam_matrix, distortion_matrix)

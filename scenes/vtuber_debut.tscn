@@ -8,7 +8,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_75a70"]
 shader = ExtResource("2_4nmi8")
-shader_parameter/spin = true
+shader_parameter/spin = false
 shader_parameter/spin_speed = 5.0
 shader_parameter/spin_amp = Vector3(0.4, 0.4, 0)
 shader_parameter/precision = 0.0
@@ -27,9 +27,11 @@ shader_parameter/color_scale = Vector2(1.03, 1.22)
 
 [node name="VtuberDebut" type="Node2D"]
 
-[node name="vtuber_demo_runner" type="Node2D" parent="." node_paths=PackedStringArray("hands", "torso", "rend")]
+[node name="vtuber_demo_runner" type="Node2D" parent="." node_paths=PackedStringArray("hands", "left_fingers_parent", "right_fingers_parent", "torso", "rend")]
 script = ExtResource("1_41b5d")
 hands = [NodePath("../LeftHand"), NodePath("../RightHand")]
+left_fingers_parent = NodePath("../left fingers")
+right_fingers_parent = NodePath("../right fingers")
 torso = NodePath("../Polygon2D")
 rend = NodePath("../Control/Tudy")
 
@@ -50,10 +52,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 229.0
-offset_top = -20.0
-offset_right = 362.001
-offset_bottom = 111.0
+offset_left = -66.5005
+offset_top = -65.5
+offset_right = 66.5005
+offset_bottom = 65.5
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -66,15 +68,64 @@ theme_override_font_sizes/font_size = 64
 text = "ABSOLUTE CINEMA"
 
 [node name="LeftHand" type="Line2D" parent="."]
+z_index = 1
 points = PackedVector2Array(0, 0, 0, 0, 0, 0)
+default_color = Color(1, 0, 0, 1)
+
+[node name="left fingers" type="Node2D" parent="."]
+
+[node name="thumb" type="Line2D" parent="left fingers"]
+points = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0)
+default_color = Color(1, 0, 0, 1)
+
+[node name="index" type="Line2D" parent="left fingers"]
+points = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0)
+default_color = Color(1, 0, 0, 1)
+
+[node name="middle" type="Line2D" parent="left fingers"]
+points = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0)
+default_color = Color(1, 0, 0, 1)
+
+[node name="ring" type="Line2D" parent="left fingers"]
+points = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0)
+default_color = Color(1, 0, 0, 1)
+
+[node name="pinky" type="Line2D" parent="left fingers"]
+points = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0)
+default_color = Color(1, 0, 0, 1)
+
+[node name="right fingers" type="Node2D" parent="."]
+
+[node name="thumb" type="Line2D" parent="right fingers"]
+points = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0)
+default_color = Color(0, 1, 0, 1)
+
+[node name="index" type="Line2D" parent="right fingers"]
+points = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0)
+default_color = Color(0, 1, 0, 1)
+
+[node name="middle" type="Line2D" parent="right fingers"]
+points = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0)
+default_color = Color(0, 1, 0, 1)
+
+[node name="ring" type="Line2D" parent="right fingers"]
+points = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0)
+default_color = Color(0, 1, 0, 1)
+
+[node name="pinky" type="Line2D" parent="right fingers"]
+points = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0)
+default_color = Color(0, 1, 0, 1)
 
 [node name="RightHand" type="Line2D" parent="."]
+z_index = 1
 points = PackedVector2Array(0, 0, 0, 0, 0, 0)
+default_color = Color(0, 0, 1, 1)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(312, 230)
 zoom = Vector2(0.38, 0.38)
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
+z_index = -1
 position = Vector2(2, 1)
 polygon = PackedVector2Array(229.54, 179, 420, 174, 363, 400, 280, 386)
