@@ -11,6 +11,11 @@ mp_holistic = mp.solutions.holistic
 holistic = mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5)
 
 cap = cv2.VideoCapture(0)
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)  # Set width to full HD
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080)  # Set height to full HD
+
+print("Width:", cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+print("Height:", cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
 while cap.isOpened():
     success, image = cap.read()
@@ -100,11 +105,11 @@ while cap.isOpened():
 
         chest_center = [(mid_shoulder[0] + mid_hip[0]) / 2, (mid_shoulder[1] + mid_hip[1]) / 2]
 
-        print(f"shoulder 0: {[left_shoulder.x * img_w, left_shoulder.y * img_h]}")
-        print(f"shoulder 1: {[right_shoulder.x * img_w, right_shoulder.y * img_h]}")
+        print(f"shoulder 0: {[left_shoulder.x * img_w, left_shoulder.y * img_h, left_shoulder.z]}")
+        print(f"shoulder 1: {[right_shoulder.x * img_w, right_shoulder.y * img_h, right_shoulder.z]}")
 
-        print(f"hip 0: {[left_hip.x * img_w, left_hip.y * img_h]}")
-        print(f"hip 1: {[right_hip.x * img_w, right_hip.y * img_h]}")
+        print(f"hip 0: {[left_hip.x * img_w, left_hip.y * img_h, left_hip.z]}")
+        print(f"hip 1: {[right_hip.x * img_w, right_hip.y * img_h, right_hip.z]}")
 
         if show_camera_output:
             cv2.circle(image, (int(mid_shoulder[0]), int(mid_shoulder[1])), 5, (0, 255, 0), -1)
@@ -127,15 +132,15 @@ while cap.isOpened():
             cv2.line(image, right_shoulder_point, right_hip_point, (0, 255, 255), 2)
 
         left_arm_points = [
-            [left_shoulder.x * img_w, left_shoulder.y * img_h],
-            [left_elbow.x * img_w, left_elbow.y * img_h],
-            [left_wrist.x * img_w, left_wrist.y * img_h]
+            [left_shoulder.x * img_w, left_shoulder.y * img_h, left_shoulder.z],
+            [left_elbow.x * img_w, left_elbow.y * img_h, left_shoulder.z],
+            [left_wrist.x * img_w, left_wrist.y * img_h, left_shoulder.z]
         ]
 
         right_arm_points = [
-            [right_shoulder.x * img_w, right_shoulder.y * img_h],
-            [right_elbow.x * img_w, right_elbow.y * img_h],
-            [right_wrist.x * img_w, right_wrist.y * img_h]
+            [right_shoulder.x * img_w, right_shoulder.y * img_h, right_shoulder.z],
+            [right_elbow.x * img_w, right_elbow.y * img_h, right_shoulder.z],
+            [right_wrist.x * img_w, right_wrist.y * img_h, right_shoulder.z]
         ]
 
         print(f"hand 0: {left_arm_points}", flush=True)
@@ -159,7 +164,7 @@ while cap.isOpened():
             finger_points = []
             for i in range(len(indices)):
                 thing = holistic_results.right_hand_landmarks.landmark[indices[i]]
-                finger_points.append([thing.x * img_w, thing.y * img_h])
+                finger_points.append([thing.x * img_w, thing.y * img_h, thing.z])
             print(f"{finger} 1: {finger_points}", flush=True)
             
             for i in range(len(indices) - 1):
@@ -196,7 +201,7 @@ while cap.isOpened():
             finger_points = []
             for i in range(len(indices)):
                 thing = holistic_results.left_hand_landmarks.landmark[indices[i]]
-                finger_points.append([thing.x * img_w, thing.y * img_h])
+                finger_points.append([thing.x * img_w, thing.y * img_h, thing.z])
             print(f"{finger} 0: {finger_points}", flush=True)
             
             for i in range(len(indices) - 1):
@@ -224,10 +229,10 @@ while cap.isOpened():
 
         # Draw arm lines
         if holistic_results.pose_landmarks:
-            cv2.line(image, tuple(map(int, left_arm_points[0])), tuple(map(int, left_arm_points[1])), (255, 0, 0), 2)
-            cv2.line(image, tuple(map(int, left_arm_points[1])), tuple(map(int, left_arm_points[2])), (255, 0, 0), 2)
-            cv2.line(image, tuple(map(int, right_arm_points[0])), tuple(map(int, right_arm_points[1])), (0, 0, 255), 2)
-            cv2.line(image, tuple(map(int, right_arm_points[1])), tuple(map(int, right_arm_points[2])), (0, 0, 255), 2)
+            cv2.line(image, tuple(map(int, left_arm_points[0][0:-1])), tuple(map(int, left_arm_points[1][0:-1])), (255, 0, 0), 2)
+            cv2.line(image, tuple(map(int, left_arm_points[1][0:-1])), tuple(map(int, left_arm_points[2][0:-1])), (255, 0, 0), 2)
+            cv2.line(image, tuple(map(int, right_arm_points[0][0:-1])), tuple(map(int, right_arm_points[1][0:-1])), (0, 0, 255), 2)
+            cv2.line(image, tuple(map(int, right_arm_points[1][0:-1])), tuple(map(int, right_arm_points[2][0:-1])), (0, 0, 255), 2)
 
         # Display the image
         cv2.imshow('Camera Output', image)

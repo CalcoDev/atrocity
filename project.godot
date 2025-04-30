@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="TudyJam"
-run/main_scene="res://Scenes/World3D/world_3d.tscn"
+run/main_scene="uid://liewqwpl88cn"
 config/features=PackedStringArray("4.4", "Forward Plus")
 run/max_fps=240
 
@@ -39,4 +39,3 @@ quit={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
-environment/defaults/default_clear_color=Color(0.262745, 0.262745, 0.364706, 1)
