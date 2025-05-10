@@ -18,9 +18,9 @@ run/max_fps=240
 [display]
 
 window/size/viewport_width=640
-window/size/viewport_height=480
-window/size/window_width_override=1280
-window/size/window_height_override=960
+window/size/viewport_height=640
+window/size/window_width_override=640
+window/size/window_height_override=640
 window/stretch/mode="viewport"
 window/vsync/vsync_mode=0
 

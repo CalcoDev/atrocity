@@ -4,6 +4,10 @@ extends Node2D
 @export var ar_scale: float = 3.0
 @export var hands: Array[Line2D] = []
 @export var interpolation_speed: float = 4.0  # Added export variable for interpolation speed
+@export var background_color: Color = Color(0.0, 0.0, 0.0, 1.0):
+	set(value):
+		background_color = value
+		RenderingServer.set_default_clear_color(background_color)
 
 @export var left_fingers_parent: Node2D
 @export var right_fingers_parent: Node2D
@@ -38,6 +42,8 @@ const FINGERS: Array[StringName] = [
 ]
 
 func _ready():
+	RenderingServer.set_default_clear_color(background_color)
+
 	for child in left_fingers_parent.get_children():
 		left_fingers[child.name] = child
 	

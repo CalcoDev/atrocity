@@ -5,7 +5,7 @@ import time
 import math
 
 # Toggle variable to control displaying the camera output
-show_camera_output = True
+show_camera_output = False
 
 mp_holistic = mp.solutions.holistic
 holistic = mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5)

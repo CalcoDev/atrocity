@@ -30,9 +30,11 @@ shader_parameter/color_scale = Vector2(1.03, 1.22)
 
 [node name="vtuber_demo_runner" type="Node2D" parent="." node_paths=PackedStringArray("hands", "left_fingers_parent", "right_fingers_parent", "torso", "rend")]
 script = ExtResource("1_41b5d")
-angle_scale = Vector3(6, 4, 4)
+angle_scale = Vector3(6, 2, 4)
 ar_scale = 5.0
 hands = [NodePath("../LeftHand"), NodePath("../RightHand")]
+interpolation_speed = 15.0
+background_color = Color(0, 1, 0, 1)
 left_fingers_parent = NodePath("../left fingers")
 right_fingers_parent = NodePath("../right fingers")
 torso = NodePath("../Polygon2D")
@@ -65,6 +67,7 @@ grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="."]
+visible = false
 offset_left = -410.0
 offset_top = -161.0
 offset_right = 178.0
@@ -74,72 +77,71 @@ theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 32
 text = "georgrgfafie"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="LeftHand" type="Line2D" parent="."]
 z_index = 1
 points = PackedVector2Array(0, 0, 0, 0, 0, 0)
-width = 5.0
 default_color = Color(1, 0, 0, 1)
+
+[node name="RightHand" type="Line2D" parent="."]
+z_index = -1
+points = PackedVector2Array(0, 0, 0, 0, 0, 0)
+default_color = Color(0, 0, 1, 1)
 
 [node name="left fingers" type="Node2D" parent="."]
 
 [node name="thumb" type="Line2D" parent="left fingers"]
 points = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0)
-width = 5.0
+width = 8.0
 default_color = Color(0, 0, 1, 1)
 
 [node name="index" type="Line2D" parent="left fingers"]
 points = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0)
-width = 5.0
+width = 8.0
 default_color = Color(0, 0, 1, 1)
 
 [node name="middle" type="Line2D" parent="left fingers"]
 points = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0)
-width = 5.0
+width = 8.0
 default_color = Color(0, 0, 1, 1)
 
 [node name="ring" type="Line2D" parent="left fingers"]
 points = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0)
-width = 5.0
+width = 8.0
 default_color = Color(0, 0, 1, 1)
 
 [node name="pinky" type="Line2D" parent="left fingers"]
 points = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0)
-width = 5.0
+width = 8.0
 default_color = Color(0, 0, 1, 1)
 
 [node name="right fingers" type="Node2D" parent="."]
 
 [node name="thumb" type="Line2D" parent="right fingers"]
 points = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0)
-width = 5.0
+width = 8.0
 default_color = Color(1, 0, 0, 1)
 
 [node name="index" type="Line2D" parent="right fingers"]
 points = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0)
-width = 5.0
+width = 8.0
 default_color = Color(1, 0, 0, 1)
 
 [node name="middle" type="Line2D" parent="right fingers"]
 points = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0)
-width = 5.0
+width = 8.0
 default_color = Color(1, 0, 0, 1)
 
 [node name="ring" type="Line2D" parent="right fingers"]
 points = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0)
-width = 5.0
+width = 8.0
 default_color = Color(1, 0, 0, 1)
 
 [node name="pinky" type="Line2D" parent="right fingers"]
 points = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0)
-width = 5.0
+width = 8.0
 default_color = Color(1, 0, 0, 1)
-
-[node name="RightHand" type="Line2D" parent="."]
-z_index = -1
-points = PackedVector2Array(0, 0, 0, 0, 0, 0)
-width = 5.0
-default_color = Color(0, 0, 1, 1)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(700, 466)
@@ -152,11 +154,11 @@ position = Vector2(2, 1)
 polygon = PackedVector2Array(229.54, 179, 420, 174, 363, 400, 280, 386)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-1287, -368)
+position = Vector2(-3507, -1482)
 texture = ExtResource("6_026mq")
 
 [node name="Head" type="Polygon2D" parent="."]
-position = Vector2(-1312, -1507)
+position = Vector2(-3224.71, -1384.94)
 color = Color(1, 0, 1, 1)
 texture = ExtResource("6_026mq")
 polygon = PackedVector2Array(289.407, 397.859, 362.989, 528.203, 453.389, 539.766, 534.328, 469.338, 598.449, 241.236, 494.384, 119.301, 379.807, 111.943, 269.435, 210.752, 340.02, 329.431, 369.313, 314.279, 421.838, 339.532, 419.818, 359.734, 465.273, 364.784, 475.374, 348.623, 520.828, 362.764, 522.848, 377.916, 389.515, 401.148, 418.808, 424.38, 455.172, 416.299, 472.343, 455.693, 419.818, 436.501, 363.252, 436.501, 397.596, 463.774, 434.97, 467.815, 320.826, 349.637, 339.007, 260.749, 534.967, 265.799, 569.016, 384.194, 347.088, 434.486, 358.199, 404.183, 493.553, 448.627, 482.442, 416.304, 436.987, 498.122, 389.512, 493.072, 401.634, 228.425, 488.502, 237.516, 372.341, 287.011, 445.068, 290.042, 505.674, 310.244)
@@ -164,7 +166,7 @@ uv = PackedVector2Array(293.612, 224.417, 312.533, 200.241)
 polygons = [PackedInt32Array(8, 9, 10, 11), PackedInt32Array(12, 13, 14, 15), PackedInt32Array(17, 16, 11, 10, 13, 12, 18), PackedInt32Array(20, 19, 23, 22, 21), PackedInt32Array(0, 24, 7), PackedInt32Array(1, 28, 0), PackedInt32Array(1, 33, 32, 2), PackedInt32Array(28, 21, 22, 33, 1), PackedInt32Array(22, 33, 32, 23), PackedInt32Array(2, 3, 30), PackedInt32Array(32, 2, 19, 23), PackedInt32Array(2, 19, 30), PackedInt32Array(0, 24, 29, 28), PackedInt32Array(7, 6, 34, 25), PackedInt32Array(6, 5, 35, 34), PackedInt32Array(35, 26, 4, 5), PackedInt32Array(4, 27, 26), PackedInt32Array(25, 8, 24, 7), PackedInt32Array(8, 9, 36, 25), PackedInt32Array(9, 10, 37, 36), PackedInt32Array(10, 13, 38, 37), PackedInt32Array(14, 13, 38), PackedInt32Array(27, 15, 14, 38, 26), PackedInt32Array(3, 27, 15, 31, 30), PackedInt32Array(19, 30, 31, 18, 17, 20), PackedInt32Array(20, 17, 16, 29, 28, 21), PackedInt32Array(16, 11, 8, 24, 29), PackedInt32Array(18, 12, 15, 31), PackedInt32Array(38, 26, 35, 37), PackedInt32Array(36, 34, 25), PackedInt32Array(36, 34, 35, 37)]
 
 [node name="Neck" type="Polygon2D" parent="."]
-position = Vector2(-1313, -1512)
+position = Vector2(-3225.71, -1389.94)
 color = Color(1, 0, 1, 1)
 texture = ExtResource("6_026mq")
 polygon = PackedVector2Array(312.442, 397.423, 383.779, 487.733, 434.626, 497.598, 503.686, 458.135, 490.026, 550.722, 410.341, 606.122, 360.253, 596.256, 295.746, 512.776)
@@ -172,7 +174,7 @@ uv = PackedVector2Array(311.684, 395.902)
 polygons = [PackedInt32Array(0, 1, 7), PackedInt32Array(7, 6, 1), PackedInt32Array(6, 5, 1), PackedInt32Array(2, 5, 1), PackedInt32Array(2, 5, 4), PackedInt32Array(2, 3, 4)]
 
 [node name="Body" type="Polygon2D" parent="."]
-position = Vector2(-1314, -1511)
+position = Vector2(-3226.71, -1388.94)
 color = Color(1, 0, 1, 1)
 texture = ExtResource("6_026mq")
 polygon = PackedVector2Array(262.707, 469.415, 266.378, 743.984, 497.783, 698.07, 547.369, 666.849, 600.629, 598.896, 648.379, 519.925, 666.745, 574.103, 640.115, 635.627, 694.293, 656.748, 719.098, 473.091, 530.852, 432.687, 503.304, 478.601, 486.775, 491.457, 482.183, 540.125, 403.212, 598.895, 368.317, 585.121, 312.303, 510.74, 318.731, 448.298, 311.384, 415.24, 374.747, 662.254, 517.079, 593.384, 589.623, 479.518, 692.469, 500.638, 677.777, 620.013)
