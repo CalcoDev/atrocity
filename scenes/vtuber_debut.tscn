@@ -30,6 +30,8 @@ shader_parameter/color_scale = Vector2(1.03, 1.22)
 
 [node name="vtuber_demo_runner" type="Node2D" parent="." node_paths=PackedStringArray("hands", "left_fingers_parent", "right_fingers_parent", "torso", "rend")]
 script = ExtResource("1_41b5d")
+angle_scale = Vector3(6, 4, 4)
+ar_scale = 5.0
 hands = [NodePath("../LeftHand"), NodePath("../RightHand")]
 left_fingers_parent = NodePath("../left fingers")
 right_fingers_parent = NodePath("../right fingers")
