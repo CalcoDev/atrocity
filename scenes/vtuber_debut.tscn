@@ -1,9 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://liewqwpl88cn"]
+[gd_scene load_steps=8 format=3 uid="uid://liewqwpl88cn"]
 
 [ext_resource type="Script" uid="uid://u28a8eohl0x3" path="res://scripts/vtuber_demo_runner.gd" id="1_41b5d"]
 [ext_resource type="Shader" uid="uid://dxiv4nup6eytn" path="res://resources/shaders/vtuber_debut.gdshader" id="2_4nmi8"]
-[ext_resource type="Texture2D" uid="uid://d3ojspfdnmfvb" path="res://assets/heightmaps/face_heightmap.png" id="2_dyxo6"]
-[ext_resource type="Texture2D" uid="uid://11nbgvsrsrgb" path="res://assets/faces/serb.png" id="3_4nmi8"]
+[ext_resource type="Script" uid="uid://0o1l67gg6pjr" path="res://scenes/camera_2d.gd" id="5_026mq"]
 [ext_resource type="Texture2D" uid="uid://cus2ilyx1nwep" path="res://assets/faces/kongle.jpg" id="5_ahvkr"]
 [ext_resource type="Texture2D" uid="uid://bt2rr3kjk7eb8" path="res://assets/faces/serb_thumbs_up.png" id="6_026mq"]
 [ext_resource type="Texture2D" uid="uid://bn1nn5xm48ort" path="res://assets/faces/kongle_height.png" id="6_k83y6"]
@@ -22,8 +21,8 @@ shader_parameter/orthogonal = true
 shader_parameter/fov_amp = 0.315
 shader_parameter/shape_texture = ExtResource("6_k83y6")
 shader_parameter/color_texture = ExtResource("5_ahvkr")
-shader_parameter/back_shape_texture = ExtResource("2_dyxo6")
-shader_parameter/back_color_texture = ExtResource("3_4nmi8")
+shader_parameter/back_shape_texture = ExtResource("6_k83y6")
+shader_parameter/back_color_texture = ExtResource("5_ahvkr")
 shader_parameter/color_offset = Vector2(-0.015, -0.025)
 shader_parameter/color_scale = Vector2(1.03, 1.22)
 
@@ -141,8 +140,9 @@ width = 5.0
 default_color = Color(0, 0, 1, 1)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(354, 549)
-zoom = Vector2(0.38, 0.38)
+position = Vector2(700, 466)
+zoom = Vector2(0.3, 0.3)
+script = ExtResource("5_026mq")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 z_index = -1
